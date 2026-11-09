@@ -14,6 +14,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Менеджер задач")
         self.resize(500, 400)
         self.init_ui()
+        self.connect_signals()
     def init_ui(self):
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -38,3 +39,10 @@ class MainWindow(QMainWindow):
         buttons_layout.addWidget(self.clear_button)
         self.counter_label = QLabel("Количество задач: 0")
         main_layout.addWidget(self.counter_label)
+    def connect_signals(self):
+        self.add_button.clicked.connect(self.add_task)
+    def add_task(self):
+        text = self.task_input.text().strip()
+        if text:
+            self.task_list.addItem(text)
+            self.task_input.clear()
