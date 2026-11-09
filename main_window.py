@@ -42,6 +42,7 @@ class MainWindow(QMainWindow):
         main_layout.addWidget(self.counter_label)
     def connect_signals(self):
         self.add_button.clicked.connect(self.add_task)
+        self.task_input.returnPressed.connect(self.add_task)
     def add_task(self):
         text = self.task_input.text().strip()
         if text:
