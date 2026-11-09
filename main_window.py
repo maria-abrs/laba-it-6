@@ -47,7 +47,13 @@ class MainWindow(QMainWindow):
     def delete_task(self):
         row = self.task_list.currentRow()
         if row >= 0:
-            self.task_list.takeItem(row)
+            answer = QMessageBox.question(
+                self,
+                "Удаление",
+                "Удалить выбранную задачу?"
+            )
+            if answer == QMessageBox.StandardButton.Yes:
+                self.task_list.takeItem(row)
         else:
             QMessageBox.warning(
                 self,
