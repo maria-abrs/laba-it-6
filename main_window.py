@@ -44,6 +44,18 @@ class MainWindow(QMainWindow):
         self.add_button.clicked.connect(self.add_task)
         self.task_input.returnPressed.connect(self.add_task)
         self.delete_button.clicked.connect(self.delete_task)
+        self.clear_button.clicked.connect(self.clear_tasks)
+    def add_task(self):
+            text = self.task_input.text().strip()
+            if text:
+                self.task_list.addItem(text)
+                self.task_input.clear()
+            else:
+                QMessageBox.warning(
+                    self,
+                    "Ошибка",
+                    "Введите название задачи"
+                )
     def delete_task(self):
         row = self.task_list.currentRow()
         if row >= 0:
@@ -60,14 +72,18 @@ class MainWindow(QMainWindow):
                 "Ошибка",
                 "Выберите задачу для удаления"
             )
-    def add_task(self):
-        text = self.task_input.text().strip()
-        if text:
-            self.task_list.addItem(text)
-            self.task_input.clear()
+    def clear_tasks(self):
+        if self.task_list.count() > 0:
+            answer = QMessageBox.question(
+                self,
+                "Очистка",
+                "Удалить все задачи?"
+            )
+            if answer == QMessageBox.StandardButton.Yes:
+                self.task_list.clear()
         else:
             QMessageBox.warning(
                 self,
                 "Ошибка",
-                "Введите название задачи"
+                "Список задач пуст"
             )
