@@ -43,6 +43,17 @@ class MainWindow(QMainWindow):
     def connect_signals(self):
         self.add_button.clicked.connect(self.add_task)
         self.task_input.returnPressed.connect(self.add_task)
+        self.delete_button.clicked.connect(self.delete_task)
+    def delete_task(self):
+        row = self.task_list.currentRow()
+        if row >= 0:
+            self.task_list.takeItem(row)
+        else:
+            QMessageBox.warning(
+                self,
+                "Ошибка",
+                "Выберите задачу для удаления"
+            )
     def add_task(self):
         text = self.task_input.text().strip()
         if text:
