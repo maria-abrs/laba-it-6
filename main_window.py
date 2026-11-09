@@ -7,6 +7,7 @@ from PyQt6.QtWidgets import (
     QListWidget,
     QVBoxLayout,
     QHBoxLayout,
+    QMessageBox,
 )
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -46,3 +47,9 @@ class MainWindow(QMainWindow):
         if text:
             self.task_list.addItem(text)
             self.task_input.clear()
+        else:
+            QMessageBox.warning(
+                self,
+                "Ошибка",
+                "Введите название задачи"
+            )
