@@ -46,16 +46,17 @@ class MainWindow(QMainWindow):
         self.delete_button.clicked.connect(self.delete_task)
         self.clear_button.clicked.connect(self.clear_tasks)
     def add_task(self):
-            text = self.task_input.text().strip()
-            if text:
-                self.task_list.addItem(text)
-                self.task_input.clear()
-            else:
-                QMessageBox.warning(
-                    self,
-                    "Ошибка",
-                    "Введите название задачи"
-                )
+        text = self.task_input.text().strip()
+        if text:
+            self.task_list.addItem(text)
+            self.task_input.clear()
+            self.update_counter()
+        else:
+            QMessageBox.warning(
+                self,
+                "Ошибка",
+                "Введите название задачи"
+            )
     def delete_task(self):
         row = self.task_list.currentRow()
         if row >= 0:
@@ -66,6 +67,7 @@ class MainWindow(QMainWindow):
             )
             if answer == QMessageBox.StandardButton.Yes:
                 self.task_list.takeItem(row)
+                self.update_counter()
         else:
             QMessageBox.warning(
                 self,
@@ -81,9 +83,13 @@ class MainWindow(QMainWindow):
             )
             if answer == QMessageBox.StandardButton.Yes:
                 self.task_list.clear()
+                self.update_counter()
         else:
             QMessageBox.warning(
                 self,
                 "Ошибка",
                 "Список задач пуст"
             )
+    def update_counter(self):
+        count = self.task_list.count()
+        self.counter_label.setText(f"Количество задач: {count}")
